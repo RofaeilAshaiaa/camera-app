@@ -29,7 +29,7 @@ task clean(type: Delete) {
 // Define versions in a single place
 ext {
     // Sdk and tools
-    minSdkVersion = 21
+    minSdkVersion = 15
     targetSdkVersion = 26
     compileSdkVersion = 26
     buildToolsVersion = '26.0.0'
@@ -38,4 +38,7 @@ ext {
     supportLibraryVersion = '25.4.0'
     junitVersion = '4.12'
     espressoVersion = '2.2.2'
+    constraintLayoutVersion = '1.0.2'
+    cameraKitVersion = '0.9.17'
+    permissionsDispatcherVersion = '2.4.0'
 }
