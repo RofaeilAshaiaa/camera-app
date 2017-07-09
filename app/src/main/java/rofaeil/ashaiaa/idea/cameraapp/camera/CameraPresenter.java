@@ -4,6 +4,7 @@ package rofaeil.ashaiaa.idea.cameraapp.camera;
 import android.os.Handler;
 
 import rofaeil.ashaiaa.idea.cameraapp.data.CameraSettings;
+import rofaeil.ashaiaa.idea.cameraapp.data.local.phonestorage.SavePhotoTask;
 import rofaeil.ashaiaa.idea.cameraapp.data.local.sharedprefrences.CameraSettingsSharedPreferences;
 
 public class CameraPresenter implements CameraContract.Presenter {
@@ -139,8 +140,10 @@ public class CameraPresenter implements CameraContract.Presenter {
     }
 
     @Override
-    public void saveCapturedPhoto() {
-        mCameraFragment.saveCapturedPhoto();
+    public void saveCapturedPhoto(byte[] jpeg) {
+        SavePhotoTask task = new SavePhotoTask(jpeg);
+        task.execute();
+        resetTimer();
     }
 
     @Override
@@ -150,7 +153,6 @@ public class CameraPresenter implements CameraContract.Presenter {
 
     @Override
     public void resetTimer() {
-
         mCameraFragment.restTimerCounter(mCameraSettings.getTimerSeconds());
     }
 

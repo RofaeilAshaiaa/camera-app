@@ -2,7 +2,6 @@ package rofaeil.ashaiaa.idea.cameraapp.camera;
 
 import rofaeil.ashaiaa.idea.cameraapp.BasePresenter;
 import rofaeil.ashaiaa.idea.cameraapp.BaseView;
-import rofaeil.ashaiaa.idea.cameraapp.data.CameraSettings;
 
 public interface CameraContract {
 
@@ -19,7 +18,6 @@ public interface CameraContract {
         void viewLastTakenImagePage();
         void toggleCamera();
         void takePhoto();
-        void saveCapturedPhoto();
         void openGalleryPage();
         void toggleTimer(int Seconds);
         void TimerCountDown(int seconds);
@@ -35,7 +33,7 @@ public interface CameraContract {
         void takePhoto();
         void openGallery();
         void changeTimer();
-        void saveCapturedPhoto();
+        void saveCapturedPhoto(byte[] jpeg);
         void setCameraSettings();
         void resetTimer();
     }
