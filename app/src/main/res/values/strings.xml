@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">CameraApp</string>
+    <string name="preferences_camera_settings">CameraSettings</string>
+    <string name="camera_type">CAMERA_TYPE</string>
+    <string name="flash_Status">FLASH_STATUS</string>
+    <string name="is_grid_lines_enabled">IS_GRID_LINES_ENABLED</string>
+    <string name="timer_seconds">TIMER_SECONDS</string>
+    <string name="permission_write_external_storage_denied">Permission Denied!</string>
 </resources>
