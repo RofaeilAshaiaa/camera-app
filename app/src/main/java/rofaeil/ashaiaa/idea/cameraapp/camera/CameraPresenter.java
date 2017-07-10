@@ -2,10 +2,15 @@ package rofaeil.ashaiaa.idea.cameraapp.camera;
 
 
 import android.os.Handler;
+import android.util.Log;
+
+import com.flurgle.camerakit.CameraKit;
 
 import rofaeil.ashaiaa.idea.cameraapp.data.CameraSettings;
 import rofaeil.ashaiaa.idea.cameraapp.data.local.phonestorage.SavePhotoTask;
 import rofaeil.ashaiaa.idea.cameraapp.data.local.sharedprefrences.CameraSettingsSharedPreferences;
+
+import static rofaeil.ashaiaa.idea.cameraapp.util.Utils.TAG;
 
 public class CameraPresenter implements CameraContract.Presenter {
 
@@ -78,13 +83,19 @@ public class CameraPresenter implements CameraContract.Presenter {
     @Override
     public void changeCamera() {
 
-        if (mCameraSettings.getCameraType() == CameraType.BACK_CAMERA)
+        if (mCameraSettings.getCameraType() == CameraType.BACK_CAMERA){
             mCameraSettings.setCameraType(CameraType.FRONT_CAMERA);
-        else
+//            mCameraFragment.toggleCamera(CameraKit.Constants.FACING_FRONT);
+            mCameraFragment.toggleCamera();
+        }
+        else{
             mCameraSettings.setCameraType(CameraType.BACK_CAMERA);
+            mCameraFragment.toggleCamera();
+//            mCameraFragment.toggleCamera(CameraKit.Constants.FACING_BACK);
+        }
 
-        mCameraFragment.toggleCamera();
         mPreferences.ChangeCameraTypeValue(mCameraSettings.getCameraType());
+
     }
 
     @Override
@@ -149,11 +160,34 @@ public class CameraPresenter implements CameraContract.Presenter {
     @Override
     public void setCameraSettings() {
         mCameraSettings = mPreferences.getCameraSettings();
+        setLastSelectedSettings();
     }
 
     @Override
     public void resetTimer() {
         mCameraFragment.restTimerCounter(mCameraSettings.getTimerSeconds());
+    }
+
+    @Override
+    public void setLastSelectedSettings() {
+        //set timer default
+        mCameraFragment.changeTimerIcon(mCameraSettings.getTimerSeconds());
+        mCameraFragment.toggleTimer(mCameraSettings.getTimerSeconds());
+        //set flash default
+        mCameraFragment.toggleFlashLight(mCameraSettings.getFlashStatus());
+        mCameraFragment.changeFlashIcon(mCameraSettings.getFlashStatus());
+        //set grid lines default
+        boolean temp = mCameraSettings.isIsGridLinesEnabled();
+        if (temp) {
+            mCameraFragment.enableGridLines();
+        } else {
+            mCameraFragment.disableGridLines();
+        }
+        mCameraFragment.changeGridLinesIcon(temp);
+//        //set default camera
+//        if (mCameraSettings.getCameraType() == CameraType.FRONT_CAMERA){
+//            mCameraFragment.toggleCamera();
+//        }
     }
 
 }

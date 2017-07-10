@@ -210,19 +210,11 @@ public class CameraFragment extends Fragment implements CameraContract.View {
     }
 
     @Override
+//    public void toggleCamera(int cameraType) {
     public void toggleCamera() {
 
         mBinding.cameraView.toggleFacing();
 
-//        switch (cameraType){
-//
-//            case BACK_CAMERA:
-//                break;
-//
-//            case FRONT_CAMERA:
-//
-//                break;
-//        }
     }
 
     @Override

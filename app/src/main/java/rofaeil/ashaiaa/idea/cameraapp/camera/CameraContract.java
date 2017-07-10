@@ -36,5 +36,6 @@ public interface CameraContract {
         void saveCapturedPhoto(byte[] jpeg);
         void setCameraSettings();
         void resetTimer();
+        void setLastSelectedSettings();
     }
 }
