@@ -35,8 +35,9 @@ public class SavePhotoTask extends AsyncTask<Void,Void,Uri> {
 
     @Override
     protected Uri doInBackground(Void... voids) {
-
-        mCapturedPhoto = BitmapFactory.decodeByteArray(jpeg, 0, jpeg.length);
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize=3;
+        mCapturedPhoto = BitmapFactory.decodeByteArray(jpeg, 0, jpeg.length,options);
         File file = CreateImageFile() ;
         SaveImageFile(file );
 
