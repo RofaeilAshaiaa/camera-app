@@ -114,7 +114,7 @@ public class CameraPresenter implements CameraContract.Presenter {
                 public void run() {
                     mCameraFragment.TimerCountDown(count[0]);
                     handler.postDelayed(this, 1000);
-                    if (count[0] - 1 == 0) {
+                    if (count[0] == 0) {
                         mCameraFragment.takePhoto();
                     }
                     count[0]--;
