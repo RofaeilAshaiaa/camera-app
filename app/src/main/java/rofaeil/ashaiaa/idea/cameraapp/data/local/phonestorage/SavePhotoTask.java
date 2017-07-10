@@ -1,7 +1,10 @@
 package rofaeil.ashaiaa.idea.cameraapp.data.local.phonestorage;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
@@ -14,25 +17,36 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import rofaeil.ashaiaa.idea.cameraapp.camera.CameraPresenter;
+
 import static rofaeil.ashaiaa.idea.cameraapp.util.Utils.TAG;
 
-public class SavePhotoTask extends AsyncTask<Void,Void,Void> {
+public class SavePhotoTask extends AsyncTask<Void,Void,Uri> {
 
     private byte[] jpeg ;
     private Bitmap mCapturedPhoto;
+    private CameraPresenter mCameraPresenter;
 
 
-    public SavePhotoTask(byte[] jpeg) {
+    public SavePhotoTask(byte[] jpeg, CameraPresenter cameraPresenter) {
         this.jpeg = jpeg ;
+        mCameraPresenter =cameraPresenter ;
     }
 
     @Override
-    protected Void doInBackground(Void... voids) {
+    protected Uri doInBackground(Void... voids) {
 
         mCapturedPhoto = BitmapFactory.decodeByteArray(jpeg, 0, jpeg.length);
-        SaveImageFile( CreateImageFile());
+        File file = CreateImageFile() ;
+        SaveImageFile(file );
 
-        return null;
+        return  Uri.fromFile(file);
+    }
+
+    @Override
+    protected void onPostExecute(Uri uri) {
+        super.onPostExecute(uri);
+        mCameraPresenter.photoSavedToStorage(uri);
     }
 
     public File CreateImageFile() {
@@ -67,4 +81,5 @@ public class SavePhotoTask extends AsyncTask<Void,Void,Void> {
             Log.d(TAG, "Error accessing file: " + e.getMessage());
         }
     }
+
 }

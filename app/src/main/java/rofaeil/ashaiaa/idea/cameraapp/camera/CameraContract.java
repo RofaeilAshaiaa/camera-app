@@ -37,5 +37,6 @@ public interface CameraContract {
         void setCameraSettings();
         void resetTimer();
         void setLastSelectedSettings();
+        void setLastCapturedPhotoUri(String imagePath);
     }
 }

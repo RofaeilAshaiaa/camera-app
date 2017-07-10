@@ -1,22 +1,24 @@
 package rofaeil.ashaiaa.idea.cameraapp.camera;
 
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Handler;
-import android.util.Log;
 
-import com.flurgle.camerakit.CameraKit;
+import java.io.File;
 
 import rofaeil.ashaiaa.idea.cameraapp.data.CameraSettings;
 import rofaeil.ashaiaa.idea.cameraapp.data.local.phonestorage.SavePhotoTask;
 import rofaeil.ashaiaa.idea.cameraapp.data.local.sharedprefrences.CameraSettingsSharedPreferences;
-
-import static rofaeil.ashaiaa.idea.cameraapp.util.Utils.TAG;
 
 public class CameraPresenter implements CameraContract.Presenter {
 
     private CameraSettings mCameraSettings;
     private final CameraContract.View mCameraFragment;
     private final CameraSettingsSharedPreferences mPreferences;
+    private Context mContext;
+    private String mLastCapturedImagePath;
 
     public CameraPresenter(CameraContract.View mCameraFragment,
                            CameraSettingsSharedPreferences preferences) {
@@ -25,6 +27,7 @@ public class CameraPresenter implements CameraContract.Presenter {
         if (mCameraFragment != null) {
             mCameraFragment.setPresenter(this);
         }
+        mContext =  ((CameraFragment)mCameraFragment).getContext();
     }
 
     @Override
@@ -152,7 +155,7 @@ public class CameraPresenter implements CameraContract.Presenter {
 
     @Override
     public void saveCapturedPhoto(byte[] jpeg) {
-        SavePhotoTask task = new SavePhotoTask(jpeg);
+        SavePhotoTask task = new SavePhotoTask(jpeg ,this);
         task.execute();
         resetTimer();
     }
@@ -190,4 +193,20 @@ public class CameraPresenter implements CameraContract.Presenter {
 //        }
     }
 
+    public void photoSavedToStorage(Uri uri){
+
+        galleryAddPic(uri);
+        setLastCapturedPhotoUri(uri.toString());
+    }
+
+    @Override
+    public void setLastCapturedPhotoUri(String imagePath) {
+        mLastCapturedImagePath = imagePath;
+    }
+
+    private void galleryAddPic( Uri contentUri ) {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        mediaScanIntent.setData(contentUri);
+        mContext.sendBroadcast(mediaScanIntent);
+    }
 }
