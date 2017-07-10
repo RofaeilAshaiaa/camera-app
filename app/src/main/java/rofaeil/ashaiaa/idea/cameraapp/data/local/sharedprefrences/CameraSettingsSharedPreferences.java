@@ -20,7 +20,7 @@ public class CameraSettingsSharedPreferences {
     private static CameraSettingsSharedPreferences sCameraSettingsSharedPreferences;
     private Context mContext;
     private SharedPreferences mSharedPreferences;
-    private SharedPreferences.Editor mEditor ;
+    private SharedPreferences.Editor mEditor;
 
 
     public CameraSettingsSharedPreferences(Context mContext) {
@@ -35,9 +35,9 @@ public class CameraSettingsSharedPreferences {
         return mSharedPreferences;
     }
 
-    private SharedPreferences.Editor getEditor(){
-        if(mEditor == null){
-           mEditor =  getSharedPreferences().edit();
+    private SharedPreferences.Editor getEditor() {
+        if (mEditor == null) {
+            mEditor = mSharedPreferences.edit();
         }
         return mEditor;
     }
@@ -54,25 +54,25 @@ public class CameraSettingsSharedPreferences {
             cameraSettings.setCameraType(FRONT_CAMERA);
 
         String FlashStatus = getSharedPreferences().getString(
-                mContext.getString(R.string.flash_Status) ,"FLASH_OFF");
-        switch (FlashStatus){
-            case "FLASH_OFF" :
+                mContext.getString(R.string.flash_Status), "FLASH_OFF");
+        switch (FlashStatus) {
+            case "FLASH_OFF":
                 cameraSettings.setFlashStatus(FLASH_OFF);
                 break;
-            case "FLASH_ON" :
+            case "FLASH_ON":
                 cameraSettings.setFlashStatus(FLASH_ON);
                 break;
-            case "FLASH_AUTO" :
+            case "FLASH_AUTO":
                 cameraSettings.setFlashStatus(FLASH_AUTO);
                 break;
         }
 
         boolean IsGridEnabled = getSharedPreferences().getBoolean(
-                mContext.getString(R.string.is_grid_lines_enabled) ,false );
+                mContext.getString(R.string.is_grid_lines_enabled), false);
         cameraSettings.setIsGridLinesEnabled(IsGridEnabled);
 
         int TimerSeconds = getSharedPreferences().getInt(
-                mContext.getString(R.string.timer_seconds) , 0);
+                mContext.getString(R.string.timer_seconds), 0);
         cameraSettings.setTimerSeconds(TimerSeconds);
 
         return cameraSettings;
@@ -80,17 +80,28 @@ public class CameraSettingsSharedPreferences {
 
     public void ChangeFlashStatusValue(FlashStatus flashStatus) {
 
+        getEditor()
+                .putString(mContext.getString(R.string.flash_Status), flashStatus.toString())
+                .apply();
+
     }
 
     public void ChangeGridLinesValue(boolean status) {
-
+        getEditor()
+                .putBoolean(mContext.getString(R.string.is_grid_lines_enabled), status)
+                .apply();
     }
 
     public void ChangeTimerSecondsValue(int timerSeconds) {
-
+        getEditor()
+                .putInt(mContext.getString(R.string.timer_seconds), timerSeconds)
+                .apply();
     }
 
     public void ChangeCameraTypeValue(CameraType cameraType) {
+        getEditor()
+                .putString(mContext.getString(R.string.camera_type), cameraType.toString())
+                .apply();
 
     }
 
