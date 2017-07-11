@@ -7,7 +7,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-alpha5'
+        classpath 'com.android.tools.build:gradle:3.0.0-alpha6'
 
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -41,4 +41,5 @@ ext {
     constraintLayoutVersion = '1.0.2'
     cameraKitVersion = '0.9.17'
     permissionsDispatcherVersion = '2.4.0'
+    subsamplingScaleImageViewVersion = '3.6.0'
 }

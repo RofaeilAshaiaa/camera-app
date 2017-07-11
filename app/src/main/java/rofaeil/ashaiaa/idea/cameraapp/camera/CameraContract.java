@@ -15,9 +15,10 @@ public interface CameraContract {
         void toggleFlashLight(FlashStatus flashStatus);
         void enableGridLines();
         void disableGridLines();
-        void viewLastTakenImagePage();
+        void viewLastTakenImagePage(String mLastCapturedImagePath);
         void toggleCamera();
         void takePhoto();
+        void showNoImageToast();
         void openGalleryPage();
         void toggleTimer(int Seconds);
         void TimerCountDown(int seconds);

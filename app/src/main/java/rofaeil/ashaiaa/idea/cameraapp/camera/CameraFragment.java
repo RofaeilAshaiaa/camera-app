@@ -1,11 +1,13 @@
 package rofaeil.ashaiaa.idea.cameraapp.camera;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.flurgle.camerakit.CameraKit;
 import com.flurgle.camerakit.CameraListener;
@@ -13,6 +15,7 @@ import com.flurgle.camerakit.CameraListener;
 import rofaeil.ashaiaa.idea.cameraapp.R;
 import rofaeil.ashaiaa.idea.cameraapp.databinding.FragmentMainBinding;
 import rofaeil.ashaiaa.idea.cameraapp.util.Utils;
+import rofaeil.ashaiaa.idea.cameraapp.viewimage.ViewImageActivity;
 
 public class CameraFragment extends Fragment implements CameraContract.View {
 
@@ -205,8 +208,10 @@ public class CameraFragment extends Fragment implements CameraContract.View {
     }
 
     @Override
-    public void viewLastTakenImagePage() {
-
+    public void viewLastTakenImagePage(String mLastCapturedImagePath) {
+        Intent intent = new Intent(getActivity(), ViewImageActivity.class);
+        intent.putExtra(getString(R.string.last_selected_image_path), mLastCapturedImagePath);
+        startActivity(intent);
     }
 
     @Override
@@ -220,6 +225,11 @@ public class CameraFragment extends Fragment implements CameraContract.View {
     @Override
     public void takePhoto() {
         mBinding.cameraView.captureImage();
+    }
+
+    @Override
+    public void showNoImageToast() {
+        Toast.makeText(getActivity(), getString(R.string.no_images_yet), Toast.LENGTH_SHORT).show();
     }
 
     @Override

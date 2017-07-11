@@ -6,4 +6,9 @@
     <string name="is_grid_lines_enabled">IS_GRID_LINES_ENABLED</string>
     <string name="timer_seconds">TIMER_SECONDS</string>
     <string name="permission_write_external_storage_denied">Permission Denied!</string>
+
+    <string name="title_activity_view_image">ViewImageActivity</string>
+    <string name="last_selected_image_path">last_selected_image_path</string>
+    <string name="no_images_yet">No Image Yet!</string>
+    <string name="photo_deleted_toast">Photo Deleted Successfully</string>
 </resources>

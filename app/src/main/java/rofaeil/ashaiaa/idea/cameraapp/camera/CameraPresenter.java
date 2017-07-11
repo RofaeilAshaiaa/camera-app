@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
 
-import java.io.File;
-
 import rofaeil.ashaiaa.idea.cameraapp.data.CameraSettings;
 import rofaeil.ashaiaa.idea.cameraapp.data.local.phonestorage.SavePhotoTask;
 import rofaeil.ashaiaa.idea.cameraapp.data.local.sharedprefrences.CameraSettingsSharedPreferences;
@@ -27,7 +25,7 @@ public class CameraPresenter implements CameraContract.Presenter {
         if (mCameraFragment != null) {
             mCameraFragment.setPresenter(this);
         }
-        mContext =  ((CameraFragment)mCameraFragment).getContext();
+        mContext = ((CameraFragment) mCameraFragment).getContext();
     }
 
     @Override
@@ -80,18 +78,23 @@ public class CameraPresenter implements CameraContract.Presenter {
 
     @Override
     public void viewLastTakenImage() {
-
+        String tempLastSelectedImage = mPreferences.getLastCapturedImageUri();
+        if (mLastCapturedImagePath != null)
+            mCameraFragment.viewLastTakenImagePage(mLastCapturedImagePath);
+        else if (tempLastSelectedImage != null)
+            mCameraFragment.viewLastTakenImagePage(tempLastSelectedImage);
+        else
+            mCameraFragment.showNoImageToast();
     }
 
     @Override
     public void changeCamera() {
 
-        if (mCameraSettings.getCameraType() == CameraType.BACK_CAMERA){
+        if (mCameraSettings.getCameraType() == CameraType.BACK_CAMERA) {
             mCameraSettings.setCameraType(CameraType.FRONT_CAMERA);
 //            mCameraFragment.toggleCamera(CameraKit.Constants.FACING_FRONT);
             mCameraFragment.toggleCamera();
-        }
-        else{
+        } else {
             mCameraSettings.setCameraType(CameraType.BACK_CAMERA);
             mCameraFragment.toggleCamera();
 //            mCameraFragment.toggleCamera(CameraKit.Constants.FACING_BACK);
@@ -155,7 +158,7 @@ public class CameraPresenter implements CameraContract.Presenter {
 
     @Override
     public void saveCapturedPhoto(byte[] jpeg) {
-        SavePhotoTask task = new SavePhotoTask(jpeg ,this);
+        SavePhotoTask task = new SavePhotoTask(jpeg, this);
         task.execute();
         resetTimer();
     }
@@ -193,7 +196,7 @@ public class CameraPresenter implements CameraContract.Presenter {
 //        }
     }
 
-    public void photoSavedToStorage(Uri uri){
+    public void photoSavedToStorage(Uri uri) {
 
         galleryAddPic(uri);
         setLastCapturedPhotoUri(uri.toString());
@@ -202,9 +205,10 @@ public class CameraPresenter implements CameraContract.Presenter {
     @Override
     public void setLastCapturedPhotoUri(String imagePath) {
         mLastCapturedImagePath = imagePath;
+        mPreferences.setLastCapturedImageUri(imagePath);
     }
 
-    private void galleryAddPic( Uri contentUri ) {
+    private void galleryAddPic(Uri contentUri) {
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         mediaScanIntent.setData(contentUri);
         mContext.sendBroadcast(mediaScanIntent);
