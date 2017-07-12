@@ -11,4 +11,5 @@
     <string name="last_selected_image_path">last_selected_image_path</string>
     <string name="no_images_yet">No Image Yet!</string>
     <string name="photo_deleted_toast">Photo Deleted Successfully</string>
+    <string name="send_to">Share Photo With:</string>
 </resources>

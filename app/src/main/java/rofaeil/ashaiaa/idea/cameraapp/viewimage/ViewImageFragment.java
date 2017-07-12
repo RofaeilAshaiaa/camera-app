@@ -101,7 +101,11 @@ public class ViewImageFragment extends Fragment implements ViewImageContract.Vie
 
     @Override
     public void sharePhoto() {
-
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(mLastCapturedImagePath));
+        shareIntent.setType("image/jpeg");
+        startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.send_to)));
     }
 
     @Override
