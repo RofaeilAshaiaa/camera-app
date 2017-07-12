@@ -79,12 +79,15 @@ public class CameraPresenter implements CameraContract.Presenter {
     @Override
     public void viewLastTakenImage() {
         String tempLastSelectedImage = mPreferences.getLastCapturedImageUri();
+        boolean isFileExists ;
         if (mLastCapturedImagePath != null) {
-            if (mCameraFragment.isFileExists(mLastCapturedImagePath))
+//            isFileExists = mCameraFragment.isFileExists(mLastCapturedImagePath) ;
+//            if (isFileExists)
                 mCameraFragment.viewLastTakenImagePage(mLastCapturedImagePath);
-            else mPreferences.setLastCapturedImageUri(null);
+//            else mPreferences.setLastCapturedImageUri(null);
         } else if (tempLastSelectedImage != null) {
-            if (mCameraFragment.isFileExists(tempLastSelectedImage))
+            isFileExists = mCameraFragment.isFileExists(tempLastSelectedImage);
+            if (isFileExists)
                 mCameraFragment.viewLastTakenImagePage(tempLastSelectedImage);
             else mPreferences.setLastCapturedImageUri(null);
         } else
