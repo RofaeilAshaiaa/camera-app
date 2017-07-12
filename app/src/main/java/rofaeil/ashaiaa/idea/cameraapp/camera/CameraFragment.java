@@ -12,6 +12,8 @@ import android.widget.Toast;
 import com.flurgle.camerakit.CameraKit;
 import com.flurgle.camerakit.CameraListener;
 
+import java.io.File;
+
 import rofaeil.ashaiaa.idea.cameraapp.R;
 import rofaeil.ashaiaa.idea.cameraapp.databinding.FragmentMainBinding;
 import rofaeil.ashaiaa.idea.cameraapp.util.Utils;
@@ -303,6 +305,15 @@ public class CameraFragment extends Fragment implements CameraContract.View {
                 showTimerSeconds();
                 break;
         }
+    }
+
+    @Override
+    public boolean isFileExists(String filePath) {
+        File file = new File(filePath);
+        if (file.exists())
+            return true;
+        else
+            return false;
     }
 
 

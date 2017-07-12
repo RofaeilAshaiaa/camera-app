@@ -23,6 +23,7 @@ public interface CameraContract {
         void toggleTimer(int Seconds);
         void TimerCountDown(int seconds);
         void restTimerCounter(int seconds);
+        boolean isFileExists(String filePath);
     }
 
     interface Presenter extends BasePresenter {
