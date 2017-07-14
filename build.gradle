@@ -12,6 +12,9 @@ buildscript {
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+
+        /* 1) Add the Gradle Retrolambda Plugin */
+        classpath 'me.tatarka:gradle-retrolambda:3.3.0-beta4'
     }
 }
 
@@ -19,6 +22,18 @@ allprojects {
     repositories {
         google()
         jcenter()
+
+        /* 2) Add mavenCentral */
+        mavenCentral()
+
+        /* 3) Add the Creative SDK Maven repo URL */
+        maven {
+            url 'https://repo.adobe.com/nexus/content/repositories/releases/'
+        }
+
+        maven {
+            url 'http://maven.localytics.com/public'
+        }
     }
 }
 
@@ -29,7 +44,7 @@ task clean(type: Delete) {
 // Define versions in a single place
 ext {
     // Sdk and tools
-    minSdkVersion = 15
+    minSdkVersion = 16
     targetSdkVersion = 26
     compileSdkVersion = 26
     buildToolsVersion = '26.0.0'
@@ -42,4 +57,6 @@ ext {
     cameraKitVersion = '0.9.17'
     permissionsDispatcherVersion = '2.4.0'
     subsamplingScaleImageViewVersion = '3.6.0'
+    creativesdkImageVersion = '4.8.4'
+    creativesdkFoundationVersion = '0.9.1251'
 }

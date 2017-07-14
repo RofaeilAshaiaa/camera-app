@@ -1,5 +1,8 @@
 apply plugin: 'com.android.application'
 
+/* 1) Apply the Gradle Retrolambda Plugin */
+apply plugin: 'me.tatarka.retrolambda'
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -9,6 +12,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        manifestPlaceholders = [appPackageName: "${applicationId}"]
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -20,6 +24,27 @@ android {
 
     dataBinding {
         enabled = true
+    }
+
+    /* 2) Compile for Java 1.8 or greater */
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    /* 3) Exclude duplicate licenses */
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/DEPENDENCIES'
+        pickFirst 'AndroidManifest.xml'
+    }
+
+    /* 4) Enable jumbo mode */
+    dexOptions {
+        jumboMode true
     }
 
 }
@@ -47,4 +72,9 @@ dependencies {
     }
     annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:$rootProject.ext.permissionsDispatcherVersion"
     implementation "com.davemorrissey.labs:subsampling-scale-image-view:$rootProject.ext.subsamplingScaleImageViewVersion"
+/* 5) Add the CSDK framework dependencies (Make sure these version numbers are correct) */
+    implementation "com.adobe.creativesdk.foundation:auth:$rootProject.ext.creativesdkFoundationVersion"
+    implementation "com.adobe.creativesdk:image:$rootProject.ext.creativesdkImageVersion"
+    implementation "com.localytics.android:library:4.0.1"
+
 }
