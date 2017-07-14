@@ -22,6 +22,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:name=".MyApplication"
         android:theme="@style/AppTheme">
         <activity android:name=".camera.CameraActivity">
             <intent-filter>
@@ -31,6 +32,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".viewimage.ViewImageActivity"></activity>
+
+        <provider
+            android:name="com.adobe.creativesdk.aviary.internal.cds.CdsProvider"
+            android:authorities="${applicationId}.CdsProvider"
+            android:exported="false" />
     </application>
 
 </manifest>
