@@ -16,12 +16,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.adobe.creativesdk.aviary.AdobeImageIntent;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 
 import java.io.File;
 
 import rofaeil.ashaiaa.idea.cameraapp.R;
 import rofaeil.ashaiaa.idea.cameraapp.databinding.FragmentViewImageBinding;
+import rofaeil.ashaiaa.idea.cameraapp.util.Utils;
+
+import static android.app.Activity.RESULT_OK;
+import static rofaeil.ashaiaa.idea.cameraapp.util.Utils.REQ_CODE_CSDK_IMAGE_EDITOR;
 
 
 public class ViewImageFragment extends Fragment implements ViewImageContract.View {
@@ -52,8 +57,7 @@ public class ViewImageFragment extends Fragment implements ViewImageContract.Vie
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        mBinding = DataBindingUtil
-                .inflate(inflater, R.layout.fragment_view_image, container, false);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_view_image, container, false);
         return mBinding.getRoot();
 
     }
@@ -126,5 +130,29 @@ public class ViewImageFragment extends Fragment implements ViewImageContract.Vie
     @Override
     public void editPhoto() {
 
+        /* 1) Create a new Intent */
+        Intent imageEditorIntent = new AdobeImageIntent.Builder(getActivity())
+                .setData(Uri.parse(mLastCapturedImagePath)) // Set in onActivityResult()
+                .build();
+
+        /* 2) Start the Image Editor with request code 1 */
+        startActivityForResult(imageEditorIntent, REQ_CODE_CSDK_IMAGE_EDITOR);
+    }
+
+    /* Handle the results */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case REQ_CODE_CSDK_IMAGE_EDITOR:
+
+                    /* Set the image! */
+                    Uri editedImageUri = data.getParcelableExtra(AdobeImageIntent.EXTRA_OUTPUT_URI);
+                    mBinding.imageView.setImage(ImageSource.uri(editedImageUri));
+                    Toast.makeText(mImageActivity, getString(R.string.photo_edited_saved_message), Toast.LENGTH_SHORT).show();
+                    break;
+
+            }
+        }
     }
 }
