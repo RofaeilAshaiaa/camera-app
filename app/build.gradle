@@ -75,6 +75,6 @@ dependencies {
 /* 5) Add the CSDK framework dependencies (Make sure these version numbers are correct) */
     implementation "com.adobe.creativesdk.foundation:auth:$rootProject.ext.creativesdkFoundationVersion"
     implementation "com.adobe.creativesdk:image:$rootProject.ext.creativesdkImageVersion"
-    implementation "com.localytics.android:library:4.0.1"
+    implementation "com.localytics.android:library:$rootProject.ext.localyticsVersion"
 
 }

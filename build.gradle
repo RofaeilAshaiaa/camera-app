@@ -59,4 +59,5 @@ ext {
     subsamplingScaleImageViewVersion = '3.6.0'
     creativesdkImageVersion = '4.8.4'
     creativesdkFoundationVersion = '0.9.1251'
+    localyticsVersion = '4.0.1'
 }
