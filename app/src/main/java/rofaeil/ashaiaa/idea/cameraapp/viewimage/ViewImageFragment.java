@@ -48,9 +48,9 @@ public class ViewImageFragment extends Fragment implements ViewImageContract.Vie
         mImageActivity = (ViewImageActivity) getActivity();
         boolean hasExtra = mImageActivity.getIntent()
                 .hasExtra(getString(R.string.last_selected_image_path));
-        if(hasExtra)
-        mLastCapturedImagePath = mImageActivity.getIntent()
-                .getStringExtra(getString(R.string.last_selected_image_path));
+        if (hasExtra)
+            mLastCapturedImagePath = mImageActivity.getIntent()
+                    .getStringExtra(getString(R.string.last_selected_image_path));
     }
 
     @Override
@@ -116,8 +116,8 @@ public class ViewImageFragment extends Fragment implements ViewImageContract.Vie
     public void deletePhoto() {
 
         File file = new File(mLastCapturedImagePath);
-        boolean status = file.delete() ;
-        if (status){
+        boolean status = file.delete();
+        if (status) {
             mImageActivity.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(new File(mLastCapturedImagePath))));
             Toast.makeText(mImageActivity, getString(R.string.photo_deleted_toast), Toast.LENGTH_SHORT).show();
             mImageActivity.finish();
@@ -129,14 +129,7 @@ public class ViewImageFragment extends Fragment implements ViewImageContract.Vie
 
     @Override
     public void editPhoto() {
-
-        /* 1) Create a new Intent */
-        Intent imageEditorIntent = new AdobeImageIntent.Builder(getActivity())
-                .setData(Uri.parse(mLastCapturedImagePath)) // Set in onActivityResult()
-                .build();
-
-        /* 2) Start the Image Editor with request code 1 */
-        startActivityForResult(imageEditorIntent, REQ_CODE_CSDK_IMAGE_EDITOR);
+        Utils.openEditPhotoPage(getActivity(), mLastCapturedImagePath);
     }
 
     /* Handle the results */

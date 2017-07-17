@@ -3,13 +3,18 @@ package rofaeil.ashaiaa.idea.cameraapp.util;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+
+import com.adobe.creativesdk.aviary.AdobeImageIntent;
 
 import java.io.File;
 import java.io.IOException;
@@ -75,5 +80,16 @@ public class Utils {
                     REQUEST_EXTERNAL_STORAGE
             );
         }
+    }
+
+
+    public static void openEditPhotoPage(FragmentActivity activity, String mLastCapturedImagePath) {
+    /* 1) Create a new Intent */
+        Intent imageEditorIntent = new AdobeImageIntent.Builder(activity)
+                .setData(Uri.parse(mLastCapturedImagePath)) // Set in onActivityResult()
+                .build();
+
+        /* 2) Start the Image Editor with request code 1 */
+        activity.startActivityForResult(imageEditorIntent, REQ_CODE_CSDK_IMAGE_EDITOR);
     }
 }
