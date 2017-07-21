@@ -134,7 +134,7 @@ public class CameraPresenter implements CameraContract.Presenter {
 
     @Override
     public void openGallery() {
-
+        mCameraFragment.openGalleryPage();
     }
 
     @Override

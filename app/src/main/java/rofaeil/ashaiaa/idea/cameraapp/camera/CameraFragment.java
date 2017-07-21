@@ -20,6 +20,7 @@ import java.io.File;
 import rofaeil.ashaiaa.idea.cameraapp.R;
 import rofaeil.ashaiaa.idea.cameraapp.data.local.database.ImagesContract;
 import rofaeil.ashaiaa.idea.cameraapp.databinding.FragmentMainBinding;
+import rofaeil.ashaiaa.idea.cameraapp.gallery.GalleryActivity;
 import rofaeil.ashaiaa.idea.cameraapp.util.Utils;
 import rofaeil.ashaiaa.idea.cameraapp.viewimage.ViewImageActivity;
 
@@ -240,7 +241,8 @@ public class CameraFragment extends Fragment implements CameraContract.View {
 
     @Override
     public void openGalleryPage() {
-
+        Intent intent = new Intent(getActivity(), GalleryActivity.class);
+        startActivity(intent);
     }
 
     @Override
