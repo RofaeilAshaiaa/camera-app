@@ -24,6 +24,8 @@ public interface CameraContract {
         void TimerCountDown(int seconds);
         void restTimerCounter(int seconds);
         boolean isFileExists(String filePath);
+        void savePhotoToDatabase(String mImageId, String mImagePath);
+
     }
 
     interface Presenter extends BasePresenter {
@@ -39,6 +41,7 @@ public interface CameraContract {
         void setCameraSettings();
         void resetTimer();
         void setLastSelectedSettings();
-        void setLastCapturedPhotoUri(String imagePath);
+        void setLastCapturedPhotoId(String mImageId);
+        void savePhotoToDatabase(String mImageId, String mImagePath);
     }
 }

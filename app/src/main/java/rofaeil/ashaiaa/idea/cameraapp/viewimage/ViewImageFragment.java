@@ -2,6 +2,7 @@ package rofaeil.ashaiaa.idea.cameraapp.viewimage;
 
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,6 +27,8 @@ import rofaeil.ashaiaa.idea.cameraapp.databinding.FragmentViewImageBinding;
 import rofaeil.ashaiaa.idea.cameraapp.util.Utils;
 
 import static android.app.Activity.RESULT_OK;
+import static rofaeil.ashaiaa.idea.cameraapp.data.local.database.ImagesContract.ImagesEntry.COLUMN_IMAGE_PATH;
+import static rofaeil.ashaiaa.idea.cameraapp.data.local.database.ImagesContract.ImagesEntry.CONTENT_URI;
 import static rofaeil.ashaiaa.idea.cameraapp.util.Utils.REQ_CODE_CSDK_IMAGE_EDITOR;
 
 
@@ -33,8 +36,9 @@ public class ViewImageFragment extends Fragment implements ViewImageContract.Vie
 
     private ViewImageContract.Presenter mPresenter;
     private FragmentViewImageBinding mBinding;
-    private String mLastCapturedImagePath;
+    private String mLastCapturedImageId;
     private ViewImageActivity mImageActivity;
+    private boolean mIsPresenterSet;
 
     public ViewImageFragment() {
         // Required empty public constructor
@@ -47,10 +51,10 @@ public class ViewImageFragment extends Fragment implements ViewImageContract.Vie
         setHasOptionsMenu(true);
         mImageActivity = (ViewImageActivity) getActivity();
         boolean hasExtra = mImageActivity.getIntent()
-                .hasExtra(getString(R.string.last_selected_image_path));
+                .hasExtra(getString(R.string.last_selected_image_id));
         if (hasExtra)
-            mLastCapturedImagePath = mImageActivity.getIntent()
-                    .getStringExtra(getString(R.string.last_selected_image_path));
+            mLastCapturedImageId = mImageActivity.getIntent()
+                    .getStringExtra(getString(R.string.last_selected_image_id));
     }
 
     @Override
@@ -68,7 +72,6 @@ public class ViewImageFragment extends Fragment implements ViewImageContract.Vie
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         toolbar.setAlpha(0.9f);
         mImageActivity.setSupportActionBar(toolbar);
-        mBinding.imageView.setImage(ImageSource.uri(Uri.parse(mLastCapturedImagePath)));
 
     }
 
@@ -100,6 +103,7 @@ public class ViewImageFragment extends Fragment implements ViewImageContract.Vie
 
     @Override
     public void setPresenter(ViewImageContract.Presenter presenter) {
+        mIsPresenterSet = true;
         mPresenter = presenter;
     }
 
@@ -107,7 +111,7 @@ public class ViewImageFragment extends Fragment implements ViewImageContract.Vie
     public void sharePhoto() {
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(mLastCapturedImagePath));
+        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(mLastCapturedImageId));
         shareIntent.setType("image/jpeg");
         startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.send_to)));
     }
@@ -115,10 +119,10 @@ public class ViewImageFragment extends Fragment implements ViewImageContract.Vie
     @Override
     public void deletePhoto() {
 
-        File file = new File(mLastCapturedImagePath);
+        File file = new File(mLastCapturedImageId);
         boolean status = file.delete();
         if (status) {
-            mImageActivity.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(new File(mLastCapturedImagePath))));
+            mImageActivity.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(new File(mLastCapturedImageId))));
             Toast.makeText(mImageActivity, getString(R.string.photo_deleted_toast), Toast.LENGTH_SHORT).show();
             mImageActivity.finish();
 
@@ -129,7 +133,29 @@ public class ViewImageFragment extends Fragment implements ViewImageContract.Vie
 
     @Override
     public void editPhoto() {
-        Utils.openEditPhotoPage(getActivity(), mLastCapturedImagePath);
+        Utils.openEditPhotoPage(getActivity(), mLastCapturedImageId);
+    }
+
+    @Override
+    public void getImagePath() {
+
+        Cursor cursor = getActivity()
+                .getContentResolver()
+                .query(Uri.withAppendedPath(CONTENT_URI, mLastCapturedImageId)
+                        , null, null,
+                        new String[]{mLastCapturedImageId}, null);
+
+        cursor.moveToFirst();
+        String imagePath = cursor.getString(cursor.getColumnIndex(COLUMN_IMAGE_PATH));
+        mPresenter.setImageToView(imagePath);
+
+    }
+
+    @Override
+    public void setImageToView(String imagePath) {
+
+        File file =  new File(imagePath);
+        mBinding.imageView.setImage(ImageSource.uri(Uri.fromFile(file)));
     }
 
     /* Handle the results */
@@ -147,5 +173,11 @@ public class ViewImageFragment extends Fragment implements ViewImageContract.Vie
 
             }
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.start();
     }
 }

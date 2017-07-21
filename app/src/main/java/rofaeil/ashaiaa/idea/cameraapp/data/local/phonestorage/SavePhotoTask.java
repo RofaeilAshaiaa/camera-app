@@ -26,6 +26,8 @@ public class SavePhotoTask extends AsyncTask<Void,Void,Uri> {
     private byte[] jpeg ;
     private Bitmap mCapturedPhoto;
     private CameraPresenter mCameraPresenter;
+    private String mImageId;
+    private String mImagePath;
 
 
     public SavePhotoTask(byte[] jpeg, CameraPresenter cameraPresenter) {
@@ -47,7 +49,8 @@ public class SavePhotoTask extends AsyncTask<Void,Void,Uri> {
     @Override
     protected void onPostExecute(Uri uri) {
         super.onPostExecute(uri);
-        mCameraPresenter.photoSavedToStorage(uri);
+        mCameraPresenter.photoSavedToStorage(uri, mImageId);
+        mCameraPresenter.savePhotoToDatabase(mImageId, mImagePath);
     }
 
     public File CreateImageFile() {
@@ -57,8 +60,9 @@ public class SavePhotoTask extends AsyncTask<Void,Void,Uri> {
                 , "Sho Camera");
         String timestamp = new SimpleDateFormat(
                 "yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+        mImageId = timestamp;
         String finalPath = imageFile.getPath() + "/" + timestamp + ".jpg";
-
+        mImagePath = finalPath;
         if (!imageFile.exists()) {
             imageFile.mkdirs();
         }

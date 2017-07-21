@@ -16,7 +16,7 @@ public class CameraPresenter implements CameraContract.Presenter {
     private final CameraContract.View mCameraFragment;
     private final CameraSettingsSharedPreferences mPreferences;
     private Context mContext;
-    private String mLastCapturedImagePath;
+    private String mLastCapturedImageId;
 
     public CameraPresenter(CameraContract.View mCameraFragment,
                            CameraSettingsSharedPreferences preferences) {
@@ -78,15 +78,15 @@ public class CameraPresenter implements CameraContract.Presenter {
 
     @Override
     public void viewLastTakenImage() {
-        String tempLastSelectedImage = mPreferences.getLastCapturedImageUri();
-        if (mLastCapturedImagePath != null) {
-//            if (mCameraFragment.isFileExists(mLastCapturedImagePath))
-                mCameraFragment.viewLastTakenImagePage(mLastCapturedImagePath);
-//            else mPreferences.setLastCapturedImageUri(null);
+        String tempLastSelectedImage = mPreferences.getLastCapturedImageId();
+        if (mLastCapturedImageId != null) {
+//            if (mCameraFragment.isFileExists(mLastCapturedImageId))
+                mCameraFragment.viewLastTakenImagePage(mLastCapturedImageId);
+//            else mPreferences.setLastCapturedImageId(null);
         } else if (tempLastSelectedImage != null) {
 //            if (mCameraFragment.isFileExists(tempLastSelectedImage))
                 mCameraFragment.viewLastTakenImagePage(tempLastSelectedImage);
-//            else mPreferences.setLastCapturedImageUri(null);
+//            else mPreferences.setLastCapturedImageId(null);
         } else
             mCameraFragment.showNoImageToast();
     }
@@ -200,16 +200,21 @@ public class CameraPresenter implements CameraContract.Presenter {
 //        }
     }
 
-    public void photoSavedToStorage(Uri uri) {
+    public void photoSavedToStorage(Uri uri, String mImageId) {
 
         galleryAddPic(uri);
-        setLastCapturedPhotoUri(uri.toString());
+        setLastCapturedPhotoId(mImageId);
     }
 
     @Override
-    public void setLastCapturedPhotoUri(String imagePath) {
-        mLastCapturedImagePath = imagePath;
-        mPreferences.setLastCapturedImageUri(imagePath);
+    public void setLastCapturedPhotoId( String mImageId) {
+        mLastCapturedImageId = mImageId;
+        mPreferences.setLastCapturedImageId(mImageId);
+    }
+
+    @Override
+    public void savePhotoToDatabase(String mImageId, String mImagePath) {
+        mCameraFragment.savePhotoToDatabase(mImageId, mImagePath);
     }
 
     private void galleryAddPic(Uri contentUri) {

@@ -1,9 +1,12 @@
 package rofaeil.ashaiaa.idea.cameraapp.camera;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +18,7 @@ import com.flurgle.camerakit.CameraListener;
 import java.io.File;
 
 import rofaeil.ashaiaa.idea.cameraapp.R;
+import rofaeil.ashaiaa.idea.cameraapp.data.local.database.ImagesContract;
 import rofaeil.ashaiaa.idea.cameraapp.databinding.FragmentMainBinding;
 import rofaeil.ashaiaa.idea.cameraapp.util.Utils;
 import rofaeil.ashaiaa.idea.cameraapp.viewimage.ViewImageActivity;
@@ -212,7 +216,7 @@ public class CameraFragment extends Fragment implements CameraContract.View {
     @Override
     public void viewLastTakenImagePage(String mLastCapturedImagePath) {
         Intent intent = new Intent(getActivity(), ViewImageActivity.class);
-        intent.putExtra(getString(R.string.last_selected_image_path), mLastCapturedImagePath);
+        intent.putExtra(getString(R.string.last_selected_image_id), mLastCapturedImagePath);
         startActivity(intent);
     }
 
@@ -316,5 +320,15 @@ public class CameraFragment extends Fragment implements CameraContract.View {
             return false;
     }
 
+    @Override
+    public void savePhotoToDatabase(String mImageId, String mImagePath) {
 
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ImagesContract.ImagesEntry.COLUMN_IMAGE_ID, mImageId);
+        contentValues.put(ImagesContract.ImagesEntry.COLUMN_IMAGE_PATH, mImagePath);
+
+        Uri uri = getActivity().getContentResolver()
+                .insert(ImagesContract.ImagesEntry.CONTENT_URI, contentValues);
+        Log.d(Utils.TAG, "savePhotoToDatabase: "+uri.toString());
+    }
 }

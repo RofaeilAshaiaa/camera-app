@@ -11,13 +11,15 @@ public interface ViewImageContract {
         void sharePhoto();
         void deletePhoto();
         void editPhoto();
-
+        void getImagePath();
+        void setImageToView(String imagePath);
     }
     interface Presenter extends BasePresenter{
 
         void sharePhoto();
         void deletePhoto();
         void editPhoto();
-
+        void getImagePath();
+        void setImageToView(String imagePath);
     }
 }
