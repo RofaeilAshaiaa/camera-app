@@ -37,6 +37,10 @@
             android:name="com.adobe.creativesdk.aviary.internal.cds.CdsProvider"
             android:authorities="${applicationId}.CdsProvider"
             android:exported="false" />
+        <provider
+            android:authorities="${applicationId}"
+            android:name=".data.local.database.ImagesProvider"
+            android:exported="false"/>
     </application>
 
 </manifest>
