@@ -76,4 +76,8 @@ dependencies {
     implementation "com.adobe.creativesdk:image:$rootProject.ext.creativesdkImageVersion"
     implementation "com.localytics.android:library:$rootProject.ext.localyticsVersion"
 
+    implementation "com.google.firebase:firebase-crash:$rootProject.ext.firebaseLibrariesVersion"
+    implementation "com.google.firebase:firebase-core:$rootProject.ext.firebaseLibrariesVersion"
 }
+
+apply plugin: 'com.google.gms.google-services'
