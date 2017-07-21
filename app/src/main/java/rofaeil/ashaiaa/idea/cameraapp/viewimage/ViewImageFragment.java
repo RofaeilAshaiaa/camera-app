@@ -89,9 +89,9 @@ public class ViewImageFragment extends Fragment implements ViewImageContract.Vie
             case R.id.share_photo:
                 mPresenter.sharePhoto();
                 return true;
-            case R.id.delete_image:
-                mPresenter.deletePhoto();
-                return true;
+//            case R.id.delete_image:
+//                mPresenter.deletePhoto();
+//                return true;
             case R.id.edit_image:
                 mPresenter.editPhoto();
                 return true;
