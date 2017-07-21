@@ -47,37 +47,41 @@ android {
         jumboMode true
     }
 
+    configurations.all {
+        resolutionStrategy.force 'com.google.code.findbugs:jsr305:3.0.1'
+    }
+
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestImplementation(
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile(
             "com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    testImplementation "junit:junit:$rootProject.ext.junitVersion"
+    testCompile "junit:junit:$rootProject.ext.junitVersion"
 
-    implementation "com.android.support:support-v4:$rootProject.ext.supportLibraryVersion"
-    implementation "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
-    implementation "com.android.support:design:$rootProject.ext.supportLibraryVersion"
-    implementation "com.android.support:cardview-v7:$rootProject.ext.supportLibraryVersion"
-    implementation "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
-    implementation "com.android.support.constraint:constraint-layout:$rootProject.ext.constraintLayoutVersion"
+    compile "com.android.support:support-v4:$rootProject.ext.supportLibraryVersion"
+    compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
+    compile "com.android.support:design:$rootProject.ext.supportLibraryVersion"
+    compile "com.android.support:cardview-v7:$rootProject.ext.supportLibraryVersion"
+    compile "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
+    compile "com.android.support.constraint:constraint-layout:$rootProject.ext.constraintLayoutVersion"
 
-    implementation "com.flurgle:camerakit:$rootProject.ext.cameraKitVersion"
+    compile "com.flurgle:camerakit:$rootProject.ext.cameraKitVersion"
     compile("com.github.hotchemi:permissionsdispatcher:$rootProject.ext.permissionsDispatcherVersion") {
         // if you don't use android.app.Fragment you can exclude support for them
         exclude module: "support-v13"
     }
     annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:$rootProject.ext.permissionsDispatcherVersion"
-    implementation "com.davemorrissey.labs:subsampling-scale-image-view:$rootProject.ext.subsamplingScaleImageViewVersion"
+    compile "com.davemorrissey.labs:subsampling-scale-image-view:$rootProject.ext.subsamplingScaleImageViewVersion"
 /* 5) Add the CSDK framework dependencies (Make sure these version numbers are correct) */
-    implementation "com.adobe.creativesdk.foundation:auth:$rootProject.ext.creativesdkFoundationVersion"
-    implementation "com.adobe.creativesdk:image:$rootProject.ext.creativesdkImageVersion"
-    implementation "com.localytics.android:library:$rootProject.ext.localyticsVersion"
+    compile "com.adobe.creativesdk.foundation:auth:$rootProject.ext.creativesdkFoundationVersion"
+    compile "com.adobe.creativesdk:image:$rootProject.ext.creativesdkImageVersion"
+    compile "com.localytics.android:library:$rootProject.ext.localyticsVersion"
 
-    implementation "com.google.firebase:firebase-crash:$rootProject.ext.firebaseLibrariesVersion"
-    implementation "com.google.firebase:firebase-core:$rootProject.ext.firebaseLibrariesVersion"
+    compile "com.google.firebase:firebase-crash:$rootProject.ext.firebaseLibrariesVersion"
+    compile "com.google.firebase:firebase-core:$rootProject.ext.firebaseLibrariesVersion"
 }
 
 apply plugin: 'com.google.gms.google-services'
