@@ -131,13 +131,7 @@ public class CameraPresenter implements CameraContract.Presenter {
                     }
                 });
             }
-
-            Runnable runnable = () -> mCanTakePhoto = true;
-            Handler handler = new Handler();
-            handler.postDelayed(runnable, 1000);
-
         }
-
     }
 
     @Override
@@ -212,6 +206,7 @@ public class CameraPresenter implements CameraContract.Presenter {
 
         galleryAddPic(uri);
         setLastCapturedPhotoId(mImageId);
+        mCanTakePhoto = true;
     }
 
     @Override
