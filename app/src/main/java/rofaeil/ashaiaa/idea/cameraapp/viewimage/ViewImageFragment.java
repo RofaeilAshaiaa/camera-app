@@ -38,7 +38,7 @@ public class ViewImageFragment extends Fragment implements ViewImageContract.Vie
     private FragmentViewImageBinding mBinding;
     private String mLastCapturedImageId;
     private ViewImageActivity mImageActivity;
-    private boolean mIsPresenterSet;
+    private String mLastCapturedImagePath;
 
     public ViewImageFragment() {
         // Required empty public constructor
@@ -103,7 +103,6 @@ public class ViewImageFragment extends Fragment implements ViewImageContract.Vie
 
     @Override
     public void setPresenter(ViewImageContract.Presenter presenter) {
-        mIsPresenterSet = true;
         mPresenter = presenter;
     }
 
@@ -133,7 +132,7 @@ public class ViewImageFragment extends Fragment implements ViewImageContract.Vie
 
     @Override
     public void editPhoto() {
-        Utils.openEditPhotoPage(getActivity(), mLastCapturedImageId);
+        Utils.openEditPhotoPage(getActivity(), mLastCapturedImagePath);
     }
 
     @Override
@@ -146,8 +145,8 @@ public class ViewImageFragment extends Fragment implements ViewImageContract.Vie
                         new String[]{mLastCapturedImageId}, null);
 
         cursor.moveToFirst();
-        String imagePath = cursor.getString(cursor.getColumnIndex(COLUMN_IMAGE_PATH));
-        mPresenter.setImageToView(imagePath);
+        mLastCapturedImagePath = cursor.getString(cursor.getColumnIndex(COLUMN_IMAGE_PATH));
+        mPresenter.setImageToView(mLastCapturedImagePath);
 
     }
 
