@@ -3,7 +3,28 @@ apply plugin: 'com.android.application'
 /* 1) Apply the Gradle Retrolambda Plugin */
 apply plugin: 'me.tatarka.retrolambda'
 
+// Create a variable called keystorePropertiesFile, and initialize it to your
+// keystore.properties file, in the rootProject folder.
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+
+// Initialize a new Properties() object called keystoreProperties.
+def keystoreProperties = new Properties()
+
+// Load your keystore.properties file into the keystoreProperties object.
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
+
 android {
+
+    signingConfigs {
+        config {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file("$rootDir/keystore.jks")
+            storePassword keystoreProperties['storePassword']
+        }
+    }
+
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
     defaultConfig {
@@ -20,8 +41,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
+
 
     dataBinding {
         enabled = true
@@ -56,34 +79,52 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+
     androidTestCompile(
             "com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
     testCompile "junit:junit:$rootProject.ext.junitVersion"
 
     compile "com.android.support:support-v4:$rootProject.ext.supportLibraryVersion"
+
     compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
+
     compile "com.android.support:design:$rootProject.ext.supportLibraryVersion"
+
     compile "com.android.support:cardview-v7:$rootProject.ext.supportLibraryVersion"
+
     compile "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
+
     compile "com.android.support.constraint:constraint-layout:$rootProject.ext.constraintLayoutVersion"
+
     compile "com.android.support:multidex:$rootProject.ext.multidexSupportLibraryVersion"
 
     compile "com.flurgle:camerakit:$rootProject.ext.cameraKitVersion"
+
     compile("com.github.hotchemi:permissionsdispatcher:$rootProject.ext.permissionsDispatcherVersion") {
         // if you don't use android.app.Fragment you can exclude support for them
         exclude module: "support-v13"
     }
+
     annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:$rootProject.ext.permissionsDispatcherVersion"
+
     compile "com.davemorrissey.labs:subsampling-scale-image-view:$rootProject.ext.subsamplingScaleImageViewVersion"
+
 /* 5) Add the CSDK framework dependencies (Make sure these version numbers are correct) */
     compile "com.adobe.creativesdk.foundation:auth:$rootProject.ext.creativesdkFoundationVersion"
+
     compile "com.adobe.creativesdk:image:$rootProject.ext.creativesdkImageVersion"
+
     compile "com.localytics.android:library:$rootProject.ext.localyticsVersion"
+
     compile "com.squareup.picasso:picasso:$rootProject.ext.picassoVersion"
+
     compile "jp.wasabeef:recyclerview-animators:$rootProject.ext.recyclerviewAnimatorsVersion"
+
     compile "com.google.firebase:firebase-crash:$rootProject.ext.firebaseLibrariesVersion"
+
     compile "com.google.firebase:firebase-core:$rootProject.ext.firebaseLibrariesVersion"
 }
 
