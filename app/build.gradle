@@ -80,6 +80,7 @@ dependencies {
     compile "com.adobe.creativesdk:image:$rootProject.ext.creativesdkImageVersion"
     compile "com.localytics.android:library:$rootProject.ext.localyticsVersion"
     compile "com.squareup.picasso:picasso:$rootProject.ext.picassoVersion"
+    compile 'jp.wasabeef:recyclerview-animators:'
     compile "com.google.firebase:firebase-crash:$rootProject.ext.firebaseLibrariesVersion"
     compile "com.google.firebase:firebase-core:$rootProject.ext.firebaseLibrariesVersion"
 }
