@@ -61,4 +61,5 @@ ext {
     creativesdkFoundationVersion = '0.9.1251'
     localyticsVersion = '4.0.1'
     firebaseLibrariesVersion = '11.0.2'
+    picassoVersion = '2.5.2'
 }

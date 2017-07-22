@@ -79,7 +79,7 @@ dependencies {
     compile "com.adobe.creativesdk.foundation:auth:$rootProject.ext.creativesdkFoundationVersion"
     compile "com.adobe.creativesdk:image:$rootProject.ext.creativesdkImageVersion"
     compile "com.localytics.android:library:$rootProject.ext.localyticsVersion"
-
+    compile "com.squareup.picasso:picasso:$rootProject.ext.picassoVersion"
     compile "com.google.firebase:firebase-crash:$rootProject.ext.firebaseLibrariesVersion"
     compile "com.google.firebase:firebase-core:$rootProject.ext.firebaseLibrariesVersion"
 }
