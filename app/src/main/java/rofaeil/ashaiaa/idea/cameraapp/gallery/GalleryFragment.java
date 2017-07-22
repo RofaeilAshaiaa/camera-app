@@ -32,6 +32,7 @@ public class GalleryFragment extends Fragment
     private FragmentGalleryBinding mBinding;
     private GalleryContract.Presenter mPresenter;
     private GalleryActivity mGalleryActivity;
+    private boolean isEditPhotoEnabled = false;
 
     public GalleryFragment() {
         // Required empty public constructor
@@ -45,10 +46,9 @@ public class GalleryFragment extends Fragment
         boolean hasExtra = mGalleryActivity.getIntent()
                 .hasExtra(getString(R.string.is_opened_from_widget));
         if (hasExtra){
-            boolean isEditPhotoEnabled =  mGalleryActivity.getIntent()
+            isEditPhotoEnabled =  mGalleryActivity.getIntent()
                     .getBooleanExtra(getString(R.string.is_opened_from_widget) ,false);
 
-           if(isEditPhotoEnabled) mPresenter.editedPhotoClicked();
         }
 
     }
@@ -66,6 +66,7 @@ public class GalleryFragment extends Fragment
     public void onResume() {
         super.onResume();
         mPresenter.start();
+        if(isEditPhotoEnabled) mPresenter.editedPhotoClicked();
     }
 
     @Override
