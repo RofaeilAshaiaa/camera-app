@@ -20,6 +20,9 @@ public interface GalleryContract {
 
         void switchToGalleryMode();
 
+        void openEditPage(Image image);
+
+        void openViewImagePage(Image image);
     }
 
     interface Presenter extends BasePresenter {
@@ -27,5 +30,7 @@ public interface GalleryContract {
         void cameraIconSelected();
 
         void editedPhotoClicked();
+
+        void onImageClickListener(int position);
     }
 }

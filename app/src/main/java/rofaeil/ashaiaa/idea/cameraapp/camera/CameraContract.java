@@ -15,7 +15,7 @@ public interface CameraContract {
         void toggleFlashLight(FlashStatus flashStatus);
         void enableGridLines();
         void disableGridLines();
-        void viewLastTakenImagePage(String mLastCapturedImagePath);
+        void viewLastTakenImagePage(String mLastCapturedImageId);
         void toggleCamera();
         void takePhoto();
         void showNoImageToast();
@@ -23,7 +23,6 @@ public interface CameraContract {
         void toggleTimer(int Seconds);
         void TimerCountDown(int seconds);
         void restTimerCounter(int seconds);
-        boolean isFileExists(String filePath);
         void savePhotoToDatabase(String mImageId, String mImagePath);
 
     }

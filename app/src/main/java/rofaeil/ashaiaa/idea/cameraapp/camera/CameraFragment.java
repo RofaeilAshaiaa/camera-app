@@ -215,9 +215,9 @@ public class CameraFragment extends Fragment implements CameraContract.View {
     }
 
     @Override
-    public void viewLastTakenImagePage(String mLastCapturedImagePath) {
+    public void viewLastTakenImagePage(String mLastCapturedImageId) {
         Intent intent = new Intent(getActivity(), ViewImageActivity.class);
-        intent.putExtra(getString(R.string.last_selected_image_id), mLastCapturedImagePath);
+        intent.putExtra(getString(R.string.last_selected_image_id), mLastCapturedImageId);
         startActivity(intent);
     }
 

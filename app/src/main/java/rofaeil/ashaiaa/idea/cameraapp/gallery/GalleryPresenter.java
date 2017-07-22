@@ -25,7 +25,7 @@ public class GalleryPresenter
     private GalleryContract.View mGalleryFragment;
     private static final int URL_LOADER = 0;
     private ArrayList<Image> mImages;
-    public static boolean sEditPhotoMode = false;
+    private boolean mEditPhotoMode = false;
 
     public GalleryPresenter(GalleryFragment galleryFragment, Context context) {
         mContext = context;
@@ -95,15 +95,29 @@ public class GalleryPresenter
 
     @Override
     public void cameraIconSelected() {
-
+        mGalleryFragment.openCameraPage();
     }
 
     @Override
     public void editedPhotoClicked() {
-        if (sEditPhotoMode)
-            sEditPhotoMode = false;
-        else
-            sEditPhotoMode = true;
-        mGalleryFragment.switchToEditPhotoMode();
+
+        if (mEditPhotoMode){
+            mEditPhotoMode = false;
+            mGalleryFragment.switchToGalleryMode();
+        }
+        else{
+            mEditPhotoMode = true;
+            mGalleryFragment.switchToEditPhotoMode();
+        }
+    }
+
+    @Override
+    public void onImageClickListener(int position) {
+        Image image = mImages.get(position);
+        if(mEditPhotoMode){
+            mGalleryFragment.openEditPage(image);
+        }else {
+            mGalleryFragment.openViewImagePage(image);
+        }
     }
 }

@@ -19,10 +19,12 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
 
     private ArrayList<Image> mImages;
     private Context mContext;
+    private final ListItemClickListener mOnClickListener;
 
-    public GalleryAdapter(ArrayList<Image> images, Context context) {
+    public GalleryAdapter(ArrayList<Image> images, Context context , ListItemClickListener listener) {
         mImages = images;
         mContext = context;
+        mOnClickListener = listener;
     }
 
     @Override
@@ -49,10 +51,10 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
         if (mImages != null)
           return  mImages.size();
 
-        return 2;
+        return 0;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener{
 
         public ImageView imageView;
 
@@ -60,6 +62,17 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
             super(itemView);
 
             imageView = itemView.findViewById(R.id.iv_gallery_list_item);
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            int clickedPosition = getAdapterPosition();
+            mOnClickListener.ListItemClicked(clickedPosition);
+        }
+    }
+
+    public interface ListItemClickListener{
+        void ListItemClicked(int postion);
     }
 }

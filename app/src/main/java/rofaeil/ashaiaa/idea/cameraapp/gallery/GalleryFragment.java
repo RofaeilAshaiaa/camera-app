@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,9 +21,12 @@ import rofaeil.ashaiaa.idea.cameraapp.R;
 import rofaeil.ashaiaa.idea.cameraapp.camera.CameraActivity;
 import rofaeil.ashaiaa.idea.cameraapp.data.Image;
 import rofaeil.ashaiaa.idea.cameraapp.databinding.FragmentGalleryBinding;
+import rofaeil.ashaiaa.idea.cameraapp.util.Utils;
+import rofaeil.ashaiaa.idea.cameraapp.viewimage.ViewImageActivity;
 
 
-public class GalleryFragment extends Fragment implements GalleryContract.View {
+public class GalleryFragment extends Fragment
+        implements GalleryContract.View, GalleryAdapter.ListItemClickListener {
 
     private FragmentGalleryBinding mBinding;
     private GalleryContract.Presenter mPresenter;
@@ -43,7 +44,7 @@ public class GalleryFragment extends Fragment implements GalleryContract.View {
         boolean hasExtra = mGalleryActivity.getIntent()
                 .hasExtra(getString(R.string.is_opened_from_widget));
         if (hasExtra)
-            GalleryPresenter.sEditPhotoMode = mGalleryActivity.getIntent()
+            mGalleryActivity.getIntent()
                     .getBooleanExtra(getString(R.string.is_opened_from_widget) ,false);
 
     }
@@ -66,7 +67,7 @@ public class GalleryFragment extends Fragment implements GalleryContract.View {
     @Override
     public void setAdapterWithDataToRecyclerView(ArrayList<Image> mImages) {
 
-        GalleryAdapter galleryAdapter = new GalleryAdapter(mImages, mGalleryActivity);
+        GalleryAdapter galleryAdapter = new GalleryAdapter(mImages, mGalleryActivity ,this);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mGalleryActivity, 3);
         mBinding.rvGallery.setLayoutManager(gridLayoutManager);
         mBinding.rvGallery.setItemAnimator(new SlideInLeftAnimator());
@@ -89,12 +90,24 @@ public class GalleryFragment extends Fragment implements GalleryContract.View {
 
     @Override
     public void switchToEditPhotoMode() {
-        mBinding.toolbar.setTitle("Select Photo to Edit");
+        mBinding.toolbar.setTitle(getString(R.string.toolbar_title_gallery_edit_mode));
     }
 
     @Override
     public void switchToGalleryMode() {
         mBinding.toolbar.setTitle(getString(R.string.toolbar_title_gallery));
+    }
+
+    @Override
+    public void openEditPage(Image image) {
+        Utils.openEditPhotoPage(mGalleryActivity,image.getImagePath());
+    }
+
+    @Override
+    public void openViewImagePage(Image image) {
+        Intent intent = new Intent(getActivity(), ViewImageActivity.class);
+        intent.putExtra(getString(R.string.last_selected_image_id), image.getImageId());
+        startActivity(intent);
     }
 
     @Override
@@ -121,5 +134,10 @@ public class GalleryFragment extends Fragment implements GalleryContract.View {
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+
+    @Override
+    public void ListItemClicked(int position) {
+        mPresenter.onImageClickListener(position);
     }
 }
