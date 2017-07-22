@@ -12,12 +12,14 @@
         android:id="@+id/share_photo"
         android:icon="@drawable/ic_share_black_24dp"
         app:showAsAction="ifRoom"
-        android:title="Share">
+        android:contentDescription="@string/share_photo_content_description"
+        android:title="@string/share">
     </item>
     <item
         android:id="@+id/edit_image"
         android:icon="@drawable/ic_camera_enhance_black_24dp"
         app:showAsAction="ifRoom"
-        android:title="Edit Image">
+        android:contentDescription="@string/edit_image_content_description"
+        android:title="@string/edit_image">
     </item>
 </menu>
