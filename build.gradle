@@ -62,5 +62,5 @@ ext {
     localyticsVersion = '4.0.1'
     firebaseLibrariesVersion = '11.0.2'
     picassoVersion = '2.5.2'
-    recyclerviewAnimators = '2.2.7'
+    recyclerviewAnimatorsVersion = '2.2.7'
 }
