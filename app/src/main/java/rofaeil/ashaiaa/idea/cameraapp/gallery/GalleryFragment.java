@@ -44,9 +44,12 @@ public class GalleryFragment extends Fragment
         mGalleryActivity = (GalleryActivity) getActivity();
         boolean hasExtra = mGalleryActivity.getIntent()
                 .hasExtra(getString(R.string.is_opened_from_widget));
-        if (hasExtra)
-            mGalleryActivity.getIntent()
+        if (hasExtra){
+            boolean isEditPhotoEnabled =  mGalleryActivity.getIntent()
                     .getBooleanExtra(getString(R.string.is_opened_from_widget) ,false);
+
+           if(isEditPhotoEnabled) mPresenter.editedPhotoClicked();
+        }
 
     }
 
@@ -82,11 +85,6 @@ public class GalleryFragment extends Fragment
     public void openCameraPage() {
         Intent intent = new Intent(getActivity(), CameraActivity.class);
         startActivity(intent);
-    }
-
-    @Override
-    public void editImageIconSelected() {
-
     }
 
     @Override

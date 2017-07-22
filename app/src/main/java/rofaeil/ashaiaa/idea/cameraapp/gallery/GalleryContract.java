@@ -14,8 +14,6 @@ public interface GalleryContract {
 
         void openCameraPage();
 
-        void editImageIconSelected();
-
         void switchToEditPhotoMode();
 
         void switchToGalleryMode();
