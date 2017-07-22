@@ -113,14 +113,14 @@ public class CameraSettingsSharedPreferences {
         return sCameraSettingsSharedPreferences;
     }
 
-    public void setLastCapturedImageUri(String imageUri){
+    public void setLastCapturedImageId(String imageId){
         getEditor()
-                .putString(mContext.getString(R.string.last_selected_image_path), imageUri)
+                .putString(mContext.getString(R.string.last_selected_image_id), imageId)
                 .apply();
     }
 
-    public String getLastCapturedImageUri(){
+    public String getLastCapturedImageId(){
        return getSharedPreferences()
-                .getString(mContext.getString(R.string.last_selected_image_path),null );
+                .getString(mContext.getString(R.string.last_selected_image_id),null );
     }
 }
