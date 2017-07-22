@@ -63,4 +63,5 @@ ext {
     firebaseLibrariesVersion = '11.0.2'
     picassoVersion = '2.5.2'
     recyclerviewAnimatorsVersion = '2.2.7'
+    multidexSupportLibraryVersion ='1.0.1'
 }

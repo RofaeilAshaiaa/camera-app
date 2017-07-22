@@ -12,6 +12,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         manifestPlaceholders = [appPackageName: "${applicationId}"]
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -67,6 +68,7 @@ dependencies {
     compile "com.android.support:cardview-v7:$rootProject.ext.supportLibraryVersion"
     compile "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
     compile "com.android.support.constraint:constraint-layout:$rootProject.ext.constraintLayoutVersion"
+    compile "com.android.support:multidex:$rootProject.ext.multidexSupportLibraryVersion"
 
     compile "com.flurgle:camerakit:$rootProject.ext.cameraKitVersion"
     compile("com.github.hotchemi:permissionsdispatcher:$rootProject.ext.permissionsDispatcherVersion") {
