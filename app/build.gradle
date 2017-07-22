@@ -115,7 +115,12 @@ dependencies {
 /* 5) Add the CSDK framework dependencies (Make sure these version numbers are correct) */
     compile "com.adobe.creativesdk.foundation:auth:$rootProject.ext.creativesdkFoundationVersion"
 
-    compile "com.adobe.creativesdk:image:$rootProject.ext.creativesdkImageVersion"
+    compile ("com.adobe.creativesdk:image:$rootProject.ext.creativesdkImageVersion"){
+        exclude group: 'com.google.android.gms', module: 'play-services-iid'
+        exclude group: 'com.google.android.gms', module: 'play-services-basement'
+        exclude group: 'com.google.android.gms', module: 'play-services-base'
+        exclude group: 'com.google.firebase', module: 'firebase-common'
+    }
 
     compile "com.localytics.android:library:$rootProject.ext.localyticsVersion"
 
