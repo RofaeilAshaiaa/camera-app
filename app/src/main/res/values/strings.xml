@@ -31,4 +31,5 @@
     <string name="share">Share</string>
     <string name="share_photo_content_description">Share Photo</string>
     <string name="timer_counter_content_description">Timer Counter</string>
+    <string name="appwidget_content_description">Edit Photo Sho Camera</string>
 </resources>
