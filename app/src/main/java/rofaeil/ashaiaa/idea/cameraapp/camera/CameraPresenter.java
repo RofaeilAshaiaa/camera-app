@@ -17,6 +17,7 @@ public class CameraPresenter implements CameraContract.Presenter {
     private final CameraSettingsSharedPreferences mPreferences;
     private Context mContext;
     private String mLastCapturedImageId;
+    private boolean mCanTakePhoto = true;
 
     public CameraPresenter(CameraContract.View mCameraFragment,
                            CameraSettingsSharedPreferences preferences) {
@@ -110,24 +111,31 @@ public class CameraPresenter implements CameraContract.Presenter {
 
     @Override
     public void takePhoto() {
+        if(mCanTakePhoto){
+            mCanTakePhoto = false;
+            if (mCameraSettings.getTimerSeconds() == 0) {
+                mCameraFragment.takePhoto();
+            } else {
+                final Handler handler = new Handler();
+                final int[] count = {mCameraSettings.getTimerSeconds()};
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mCameraFragment.TimerCountDown(count[0]);
+                        handler.postDelayed(this, 1000);
+                        if (count[0] == 0) {
+                            mCameraFragment.takePhoto();
+                        }
+                        count[0]--;
 
-        if (mCameraSettings.getTimerSeconds() == 0) {
-            mCameraFragment.takePhoto();
-        } else {
-            final Handler handler = new Handler();
-            final int[] count = {mCameraSettings.getTimerSeconds()};
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    mCameraFragment.TimerCountDown(count[0]);
-                    handler.postDelayed(this, 1000);
-                    if (count[0] == 0) {
-                        mCameraFragment.takePhoto();
                     }
-                    count[0]--;
+                });
+            }
 
-                }
-            });
+            Runnable runnable = () -> mCanTakePhoto = true;
+            Handler handler = new Handler();
+            handler.postDelayed(runnable, 1000);
+
         }
 
     }
