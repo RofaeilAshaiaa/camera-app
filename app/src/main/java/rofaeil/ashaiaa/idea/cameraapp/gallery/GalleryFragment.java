@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -91,11 +92,16 @@ public class GalleryFragment extends Fragment
     @Override
     public void switchToEditPhotoMode() {
         mBinding.toolbar.setTitle(getString(R.string.toolbar_title_gallery_edit_mode));
+        mBinding.toolbar.setTitleTextColor(
+                ContextCompat.getColor(mGalleryActivity, R.color.orange_900));
+
     }
 
     @Override
     public void switchToGalleryMode() {
         mBinding.toolbar.setTitle(getString(R.string.toolbar_title_gallery));
+        mBinding.toolbar.setTitleTextColor(
+                ContextCompat.getColor(mGalleryActivity, R.color.colorPrimaryDark));
     }
 
     @Override

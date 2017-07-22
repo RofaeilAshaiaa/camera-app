@@ -314,15 +314,6 @@ public class CameraFragment extends Fragment implements CameraContract.View {
     }
 
     @Override
-    public boolean isFileExists(String filePath) {
-        File file = new File(filePath);
-        if (file.exists())
-            return true;
-        else
-            return false;
-    }
-
-    @Override
     public void savePhotoToDatabase(String mImageId, String mImagePath) {
 
         ContentValues contentValues = new ContentValues();
