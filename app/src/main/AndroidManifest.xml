@@ -14,15 +14,15 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name=".MyApplication"
         android:theme="@style/AppTheme">
         <activity android:name=".camera.CameraActivity">
             <intent-filter>
@@ -31,16 +31,37 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".viewimage.ViewImageActivity"></activity>
+        <activity android:name=".viewimage.ViewImageActivity" />
 
         <provider
             android:name="com.adobe.creativesdk.aviary.internal.cds.CdsProvider"
             android:authorities="${applicationId}.CdsProvider"
             android:exported="false" />
         <provider
-            android:authorities="${applicationId}"
             android:name=".data.local.database.ImagesProvider"
-            android:exported="false"/>
+            android:authorities="${applicationId}"
+            android:exported="false" />
+
+        <activity android:name=".gallery.GalleryActivity" />
+
+        <receiver android:name=".widget.EditPhotoAppWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/edit_photo_app_widget_info" />
+        </receiver>
+        <receiver android:name=".widget.LastCapturedImageAppWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/last_captured_image_app_widget_info" />
+        </receiver>
     </application>
 
 </manifest>

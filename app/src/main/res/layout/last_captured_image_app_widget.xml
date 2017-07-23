@@ -1,0 +1,9 @@
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/appwidget_image_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    tools:src="@drawable/ten"
+    android:contentDescription="@string/appwidget_content_description_last_image" />
