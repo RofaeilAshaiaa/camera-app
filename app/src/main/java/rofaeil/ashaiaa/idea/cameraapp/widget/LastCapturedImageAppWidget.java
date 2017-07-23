@@ -5,12 +5,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Binder;
 import android.widget.RemoteViews;
-
-import com.squareup.picasso.Picasso;
-
-import java.io.File;
 
 import rofaeil.ashaiaa.idea.cameraapp.R;
 
@@ -28,17 +23,14 @@ public class LastCapturedImageAppWidget extends AppWidgetProvider {
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.last_captured_image_app_widget);
 
-        final long identityToken = Binder.clearCallingIdentity();
-
         Cursor cursor = context.getContentResolver().query(CONTENT_URI, null, null, null,null );
-
-        Binder.restoreCallingIdentity(identityToken);
 
         if (cursor != null){
 
             cursor.moveToLast();
             String lastCapturedImagePath = cursor.getString(cursor.getColumnIndex(COLUMN_IMAGE_PATH));
-            views.setImageViewUri(R.id.appwidget_photo , Uri.parse(lastCapturedImagePath));
+            views.setImageViewUri(R.id.appwidget_image_view , Uri.parse(lastCapturedImagePath));
+            cursor.close();
         }
 
         // Instruct the widget manager to update the widget
