@@ -6,5 +6,5 @@
 /captures
 .externalNativeBuild
 /.idea/
-/gradlew
-/gradlew.bat
+/keystore.properties
+/keystore.jks

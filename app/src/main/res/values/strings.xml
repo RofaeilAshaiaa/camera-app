@@ -1,3 +1,36 @@
 <resources>
     <string name="app_name">CameraApp</string>
+    <string name="preferences_camera_settings">CameraSettings</string>
+    <string name="camera_type">CAMERA_TYPE</string>
+    <string name="flash_Status">FLASH_STATUS</string>
+    <string name="is_grid_lines_enabled">IS_GRID_LINES_ENABLED</string>
+    <string name="timer_seconds">TIMER_SECONDS</string>
+    <string name="permission_write_external_storage_denied">Permission Denied!</string>
+
+    <string name="title_activity_view_image">ViewImageActivity</string>
+    <string name="last_selected_image_id">last_selected_image_path</string>
+    <string name="no_images_yet">No Image Yet!</string>
+    <string name="photo_deleted_toast">Photo Deleted Successfully</string>
+    <string name="send_to">Share Photo With:</string>
+    <string name="photo_edited_saved_message">Photo Saved to Pictures Folder</string>
+    <string name="toolbar_title_gallery">Sho Gallery</string>
+    <string name="is_opened_from_widget">is_opened_from_widget</string>
+    <string name="toolbar_title_gallery_edit_mode">Select Photo to Edit</string>
+    <string name="image_content_description">Image</string>
+    <string name="toggle_camera_content_description">Toggle Camera</string>
+    <string name="open_gallery_content_description">Open Gallery</string>
+    <string name="enable_flash_content_description">Change Flash Light Status</string>
+    <string name="change_timer_content_description">Change Timer</string>
+    <string name="enable_grid_lines_content_description">Enable Grid Lines</string>
+    <string name="take_photo_content_description">Take Photo</string>
+    <string name="open_last_taken_image_content_description">View Last Captured Image</string>
+    <string name="open_camera">Open Camera</string>
+    <string name="edit_image">Edit Image</string>
+    <string name="edit_image_content_description">Edit Image</string>
+    <string name="open_camera_content_description">Open Camera</string>
+    <string name="share">Share</string>
+    <string name="share_photo_content_description">Share Photo</string>
+    <string name="timer_counter_content_description">Timer Counter</string>
+    <string name="appwidget_content_description">Edit Photo Sho Camera</string>
+    <string name="appwidget_content_description_last_image">View Last Taken Image</string>
 </resources>
