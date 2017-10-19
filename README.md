@@ -1,6 +1,6 @@
 # README #
 
-![alt text](https://bitbucket.org/RofaeilAshaiaa/camera-app/src/d11bd42ed210a66840d57cc516e06f7d5f5c0dff/Screenshot%20from%202017-10-18%2016-04-26.png?at=master&fileviewer=file-view-default)
+![alt text](https://bitbucket.org/RofaeilAshaiaa/camera-app/src/d11bd42ed210a66840d57cc516e06f7d5f5c0dff/Screenshot%20from%202017-10-18%2016-04-26.png)
 
 ### Features to Add ###
 
